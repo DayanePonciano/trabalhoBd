@@ -7,7 +7,6 @@
   * PACIENTE - 3
  */
 
-
  require_once 'assets/php/classes/classLogin.php';
 
  $classLogin = new classLogin();
@@ -16,33 +15,38 @@
  if(isset($_POST['login'])){
 
   $user = $_POST['email'];
-  $senha = $_POST['senha'];
+  $senha = $_POST['password'];
 
   $email =(string) $classLogin->indexEmail($user)->email;
   $password =(string) $classLogin->indexEmail($user)->senha;
   ECHO $email;
-  echo $senha;
+  echo $password;
 
   if($user == "" || $senha == ""){
     echo "<script>alert('Preencha todos os campos');</script>";
   }else if($email == $user && $senha == $password){
     
     $idu=     $tipo = $classLogin->indexEmail($user)->id;
-    $tipo = $classLogin->indexEmail($user)->tipo;
-    $_SESSION['tipo'] = $tipo;
+    $tipo = $classLogin->indexEmail($user)->type;
+    $_SESSION['type'] = $tipo;
     $_SESSION['id']= $idu; 
     if($tipo == 1){
-      header('location:  professor/index.php');
+      header('location:  administrador/index.php');
     }else if($tipo == 2){
-      header('location: aluno/index.php');
-    }else if
-    }
+      header('location: operador/index.php');
+    }else if($tipo == 3){
+
+      header('location: Paciente/index.php');
+    }else{
       header('location: index.php');
     }
   }else{
     echo "<script>alert('Login ou senha incorretos');</script>";
   }
 }
+
+
+
 ?>
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
