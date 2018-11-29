@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: 29-Nov-2018 às 02:03
+-- Generation Time: 29-Nov-2018 às 15:22
 -- Versão do servidor: 5.7.21
 -- PHP Version: 5.6.35
 
@@ -25,32 +25,22 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `averages`
+-- Estrutura da tabela `area`
 --
 
-DROP TABLE IF EXISTS `averages`;
-CREATE TABLE IF NOT EXISTS `averages` (
-  `idAverages` int(11) NOT NULL AUTO_INCREMENT,
-  `hits` int(11) NOT NULL,
-  `mocks_idmocks` int(11) NOT NULL,
-  `students_id` int(11) NOT NULL,
-  PRIMARY KEY (`idAverages`,`mocks_idmocks`,`students_id`),
-  KEY `fk_Averages_mocks1_idx` (`mocks_idmocks`),
-  KEY `fk_averages_students1_idx` (`students_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
+DROP TABLE IF EXISTS `area`;
+CREATE TABLE IF NOT EXISTS `area` (
+  `idarea` int(11) NOT NULL,
+  `nome` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`idarea`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Estrutura da tabela `classes`
+-- Extraindo dados da tabela `area`
 --
 
-DROP TABLE IF EXISTS `classes`;
-CREATE TABLE IF NOT EXISTS `classes` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+INSERT INTO `area` (`idarea`, `nome`) VALUES
+(12, 'Ciências');
 
 -- --------------------------------------------------------
 
@@ -60,138 +50,97 @@ CREATE TABLE IF NOT EXISTS `classes` (
 
 DROP TABLE IF EXISTS `login`;
 CREATE TABLE IF NOT EXISTS `login` (
-  `idlogin` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(45) NOT NULL,
   `senha` varchar(45) NOT NULL,
   `tipo` tinyint(1) NOT NULL,
-  PRIMARY KEY (`idlogin`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `nome` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `login`
+--
+
+INSERT INTO `login` (`id`, `email`, `senha`, `tipo`, `nome`) VALUES
+(1, 'sanderhs@hotmail.com', '123456', 1, 'Sander');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `mocks`
+-- Estrutura da tabela `questoes`
 --
 
-DROP TABLE IF EXISTS `mocks`;
-CREATE TABLE IF NOT EXISTS `mocks` (
-  `idmocks` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `date` date NOT NULL,
-  `questionQuantity` tinyint(4) NOT NULL,
-  `active` tinyint(1) NOT NULL,
-  `answerQuantity` int(11) NOT NULL,
-  `time` int(11) NOT NULL,
-  PRIMARY KEY (`idmocks`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `professors`
---
-
-DROP TABLE IF EXISTS `professors`;
-CREATE TABLE IF NOT EXISTS `professors` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(145) NOT NULL,
-  `cpf` varchar(15) NOT NULL,
-  `tipo` tinyint(1) NOT NULL,
-  `login_idlogin` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_professors_login1_idx` (`login_idlogin`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `questions`
---
-
-DROP TABLE IF EXISTS `questions`;
-CREATE TABLE IF NOT EXISTS `questions` (
+DROP TABLE IF EXISTS `questoes`;
+CREATE TABLE IF NOT EXISTS `questoes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `question` longtext NOT NULL,
   `answer` char(1) NOT NULL,
-  `option1` longtext NOT NULL,
-  `option2` longtext NOT NULL,
+  `option1` longtext,
+  `option2` longtext,
   `option3` longtext,
   `option4` longtext,
-  `option5` longtext,
-  `subareas_idsubareas` int(11) NOT NULL,
-  `subareas_mocks_idmocks` int(11) NOT NULL,
-  PRIMARY KEY (`id`,`subareas_idsubareas`,`subareas_mocks_idmocks`),
-  KEY `fk_questions_subareas1_idx` (`subareas_idsubareas`,`subareas_mocks_idmocks`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `students`
---
-
-DROP TABLE IF EXISTS `students`;
-CREATE TABLE IF NOT EXISTS `students` (
-  `id` int(11) NOT NULL,
-  `name` varchar(145) DEFAULT NULL,
-  `cpf` varchar(14) DEFAULT NULL,
-  `tipo` tinyint(1) DEFAULT NULL,
-  `login_idlogin` int(11) NOT NULL,
+  `simulados_idmocks` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_students_login1_idx` (`login_idlogin`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  KEY `fk_questoes_simulados1_idx` (`simulados_idmocks`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `questoes`
+--
+
+INSERT INTO `questoes` (`id`, `question`, `answer`, `option1`, `option2`, `option3`, `option4`, `simulados_idmocks`) VALUES
+(8, 'cxzc\\c', '1', 'cx\\cz', 'cc\\z', 'cxzc', 'czcx', 2),
+(9, 'asdda', '3', 'asddas', 'saddas', 'adsdsa', 'saddas', 1),
+(10, 'addsa', '4', 'dsadas', 'dassda', 'sdasda', 'sdasdasad', 3);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `subareas`
+-- Estrutura da tabela `simulados`
 --
 
-DROP TABLE IF EXISTS `subareas`;
-CREATE TABLE IF NOT EXISTS `subareas` (
-  `idsubareas` int(11) NOT NULL AUTO_INCREMENT,
-  `mocks_idmocks` int(11) NOT NULL,
-  `professors_id` int(11) NOT NULL,
-  PRIMARY KEY (`idsubareas`,`mocks_idmocks`,`professors_id`),
-  KEY `fk_subareas_mocks1_idx` (`mocks_idmocks`),
-  KEY `fk_subareas_professors1_idx` (`professors_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS `simulados`;
+CREATE TABLE IF NOT EXISTS `simulados` (
+  `idmocks` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `area_idarea` int(11) NOT NULL,
+  `data` datetime DEFAULT NULL,
+  PRIMARY KEY (`idmocks`),
+  KEY `fk_simulados_area1_idx` (`area_idarea`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `simulados`
+--
+
+INSERT INTO `simulados` (`idmocks`, `name`, `area_idarea`, `data`) VALUES
+(1, 'Prova', 12, '2018-11-08 00:00:00'),
+(2, 'Sander Henrique Santos', 12, '2018-11-15 00:00:00'),
+(3, 'far', 12, '2018-11-07 00:00:00'),
+(4, '1', 12, '2018-11-10 00:00:00'),
+(5, 'punk', 12, '2018-01-30 00:00:00'),
+(6, 'leticia', 12, '2018-12-31 00:00:00'),
+(7, 'saddsa', 12, '2018-11-03 00:00:00'),
+(8, 'sdasdsda', 12, '2018-11-09 00:00:00'),
+(9, 'sadffsd', 12, '2018-11-03 00:00:00'),
+(10, 'Ciências', 12, '2018-11-09 00:00:00');
 
 --
 -- Constraints for dumped tables
 --
 
 --
--- Limitadores para a tabela `averages`
+-- Limitadores para a tabela `questoes`
 --
-ALTER TABLE `averages`
-  ADD CONSTRAINT `fk_Averages_mocks1` FOREIGN KEY (`mocks_idmocks`) REFERENCES `mocks` (`idmocks`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_averages_students1` FOREIGN KEY (`students_id`) REFERENCES `students` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `questoes`
+  ADD CONSTRAINT `fk_questoes_simulados1` FOREIGN KEY (`simulados_idmocks`) REFERENCES `simulados` (`idmocks`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Limitadores para a tabela `professors`
+-- Limitadores para a tabela `simulados`
 --
-ALTER TABLE `professors`
-  ADD CONSTRAINT `fk_professors_login1` FOREIGN KEY (`login_idlogin`) REFERENCES `login` (`idlogin`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Limitadores para a tabela `questions`
---
-ALTER TABLE `questions`
-  ADD CONSTRAINT `fk_questions_subareas1` FOREIGN KEY (`subareas_idsubareas`,`subareas_mocks_idmocks`) REFERENCES `subareas` (`idsubareas`, `mocks_idmocks`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Limitadores para a tabela `students`
---
-ALTER TABLE `students`
-  ADD CONSTRAINT `fk_students_login1` FOREIGN KEY (`login_idlogin`) REFERENCES `login` (`idlogin`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Limitadores para a tabela `subareas`
---
-ALTER TABLE `subareas`
-  ADD CONSTRAINT `fk_subareas_mocks1` FOREIGN KEY (`mocks_idmocks`) REFERENCES `mocks` (`idmocks`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_subareas_professors1` FOREIGN KEY (`professors_id`) REFERENCES `professors` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `simulados`
+  ADD CONSTRAINT `fk_simulados_area1` FOREIGN KEY (`area_idarea`) REFERENCES `area` (`idarea`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
