@@ -57,6 +57,9 @@
                     <li id="simulado">
                         <a href="simulados.php" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon ti-truck"></i>Simulado</a>
                     </li>
+                    <li id="questoes">
+                        <a href="questoes.php" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon ti-truck"></i>Questões</a>
+                    </li>
                     <li id="alunos">
                         <a href="alunos.php" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon ti-panel"></i>Alunos Cadastrados</a>
                     </li>

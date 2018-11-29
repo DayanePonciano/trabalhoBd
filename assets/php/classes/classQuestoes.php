@@ -2,12 +2,15 @@
 
 require_once 'database.php';
 
-class classSimulados{
-	private $idmocks;
-	private $name;
-	private $area_idarea;
-	private $data;
- 
+class classQuestoes{
+	private $id;
+	private $question;
+	private $answer;
+	private $option1;
+ 	private $option2;
+ 	private $option3;
+ 	private $option4;
+ 	private $simulados_idmocks;
 
 	public function __construct() {
 		$database = new Database();
@@ -16,30 +19,45 @@ class classSimulados{
 	}
 
 	function setId($value){
-		$this->idmocks = $value;
+		$this->id = $value;
 	}
 
-	function setNome($value){
-		$this->name = $value;
+	function setQuestao($value){
+		$this->question= $value;
 	}
 
-	function setArea($value){
-		$this->area_idarea = $value;
+	function setResposta($value){
+		$this->answer = $value;
 	}
 
-	function setData($value){
-		$this->data = $value;
+	function setOpcao1($value){
+		$this->option1 = $value;
 	}
-
+	function setOpcao2($value){
+		$this->option2 = $value;
+	}
+	function setOpcao3($value){
+		$this->option3 = $value;
+	}
+	function setOpcao4($value){
+		$this->option4 = $value;
+	}
+	function setSimulado($value){
+		$this->simulados_idmocks = $value;
+	}
 	
 
 	public function insert(){
 		try{
-			$stmt = $this->conn->prepare("INSERT INTO `simulados`(`idmocks`, `name`, `area_idarea`, `data`) VALUES (:idmocks, :name, :area_idarea,:data)");
-			$stmt->bindParam(":idmocks", $this->idmocks);
-			$stmt->bindParam(":name", $this->name);
-			$stmt->bindParam(":area_idarea", $this->area_idarea);
-			$stmt->bindParam(":data", $this->data);
+			$stmt = $this->conn->prepare("INSERT INTO `questoes`( `question`, `answer`,`option1`, `option2`, `option3`, `option4`, `simulados_idmocks` ) VALUES (:question, :answer,:option1, :option2, :option3, :option4, :simulados_idmocks)");
+			$stmt->bindParam(":question", $this->question);
+			$stmt->bindParam(":answer", $this->answer);
+			$stmt->bindParam(":option1", $this->option1);
+			$stmt->bindParam(":option2", $this->option2);
+			$stmt->bindParam(":option3", $this->option3);
+			$stmt->bindParam(":option4", $this->option4);
+			$stmt->bindParam(":simulados_idmocks", $this->simulados_idmocks);
+
 			$stmt->execute();
 			return 1;
 		}catch(PDOException $e){
@@ -86,7 +104,7 @@ class classSimulados{
 	}
 
 		public function index(){
-		$stmt = $this->conn->prepare("SELECT * FROM `simulados` ORDER BY `idmocks`");
+		$stmt = $this->conn->prepare("SELECT * FROM `questoes` ORDER BY `id`");
 		$stmt->execute();
 		return $stmt;
 	}

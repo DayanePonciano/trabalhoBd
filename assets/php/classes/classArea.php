@@ -26,7 +26,6 @@ class classArea{
 			$stmt = $this->conn->prepare("INSERT INTO `area` (`nome`,  `idarea`) VALUES (:nome, :idarea)");
 			$stmt->bindParam(":nome", $this->nome);
 			$stmt->bindParam(":idarea", $this->idarea);
-
 			$stmt->execute();
 			return 1;
 		}catch(PDOException $e){

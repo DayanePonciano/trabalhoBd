@@ -15,7 +15,7 @@
  if(isset($_POST['login'])){
 
   $user = $_POST['email'];
-  $senha = $_POST['password'];
+  $senha = $_POST['senha'];
 
   $email =(string) $classLogin->indexEmail($user)->email;
   $password =(string) $classLogin->indexEmail($user)->senha;
@@ -30,13 +30,10 @@
     $tipo = $classLogin->indexEmail($user)->type;
     $_SESSION['type'] = $tipo;
     $_SESSION['id']= $idu; 
-    if($tipo == 1){
-      header('location:  administrador/index.php');
-    }else if($tipo == 2){
+    if($tipo == 0){
+      header('location:  dashboard.php');
+    }else if($tipo == 1){
       header('location: operador/index.php');
-    }else if($tipo == 3){
-
-      header('location: Paciente/index.php');
     }else{
       header('location: index.php');
     }

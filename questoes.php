@@ -1,19 +1,16 @@
  <?php
  include_once 'menu.php';
+include_once 'assets/php/classes/classQuestoes.php';
 include_once 'assets/php/classes/classSimulados.php';
-include_once 'assets/php/classes/classArea.php';
-
+        
         $classSimulados= new classSimulados();
-        $classArea= new classArea();
-
-
-
+        $classQuestoes= new classQuestoes();
 
     if(isset($_POST['delete'])){
 
-         $classSimulados->setId($_POST['id1']);
+         $classQuestoes->setId($_POST['id1']);
 
-        if($classSimulados->delete() == 1){
+        if($classQuestoes->delete() == 1){
             $result = "Venda excluida com sucesso!";
         }else{
             $error = "Erro ao excluir";
@@ -22,13 +19,11 @@ include_once 'assets/php/classes/classArea.php';
     }
 
         if(isset($_POST['edit'])){
-        $classSimulados->setId($_POST['id1']);
-        $classSimulados->setQuantidade($_POST['quantidade']);
-        $classSimulados->setData($_POST['data']);
-        $classSimulados->setProdutos_id($_POST['produtos_id']);
-
-    if($classSimulados->edit() == 1){
-        $result = "Estoque editado com sucesso!";
+        $classQuestoes->setId($_POST['id1']);
+        $classQuestoes->setNome($_POST['nome']);
+      
+    if($classQuestoes->edit() == 1){
+        $result = "Área editada com sucesso!";
     }else{
         $error = "Erro ao editar";
     }
@@ -42,7 +37,7 @@ include_once 'assets/php/classes/classArea.php';
  
     <div id="top" class="row">
         <div class="col-sm-3">
-            <h2>Simulados</h2>
+            <h2>Questões</h2>
         </div>
         <div class="col-sm-6">
             
@@ -64,7 +59,7 @@ include_once 'assets/php/classes/classArea.php';
                               </div>
         </div>
         <div class="col-sm-3">
-            <a href="adicionarSimulado.php" class="btn btn-primary pull-right h2">Novo Item</a>
+            <a href="adicionarquestoes.php" class="btn btn-primary pull-right h2">Nova Questão</a>
         </div>
     </div> <!-- /#top -->
  
@@ -76,28 +71,28 @@ include_once 'assets/php/classes/classArea.php';
         <table class="table table-striped" cellspacing="0" cellpadding="0">
             <thead>
                 <tr>
-                    <th>Nome</th>
-                    <th>Data</th>
-                    <th>Área</th>
-                    
+                    <th>Questão</th>
+                    <th>Resposta</th>
+                    <th>Simulado</th>                    
                     
                     <th class="actions">Ações</th>
                 </tr>
             </thead>
             <tbody>
                 <?php 
-                $stmt = $classSimulados->index();
-                $stmt1 = $classArea->index();
-                $row1= $stmt1->fetch(PDO::FETCH_OBJ);
-                 while($row = $stmt->fetch(PDO::FETCH_OBJ) ){
+                $stmt1 = $classSimulados->index();
+                $stmt = $classQuestoes->index();
+                
+                 while($row = $stmt->fetch(PDO::FETCH_OBJ)){
+                    $row1= $stmt1->fetch(PDO::FETCH_OBJ);
                   ?>
                 <tr>
-                    <td><?php echo $row->name ?></td>
-                    <td><?php echo $row->data ?></td>
-                    <td><?php echo $row1->nome ?></td>
+                    <td><?php echo $row->question ?></td>
+                    <td>Alternativa<?php echo $row->answer ?></td>
+                    <td><?php echo $row1->name; ?></td>                    
                     <td class="actions">
-                       <a class="btn btn-warning btn-xs" href="editarVendas.php?id=<?php echo $row->idmocks ?>">Editar</a>
-                       
+                        <a class="btn btn-warning btn-xs" href=">">Editar</a>
+                        <a class="btn btn-danger btn-xs"  href="" >Excluir</a>
                     </td>
                        <?php } ?>
                 </tr>
@@ -108,28 +103,8 @@ include_once 'assets/php/classes/classArea.php';
     
     </div> <!-- /#list -->
  </div> <!-- /#main -->
-
-<!-- Modal -->
-<div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title" id="modalLabel">Excluir Item</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar"><span aria-hidden="true">&times;</span></button>
-      </div>
-      <div class="modal-body">
-        Deseja realmente excluir este item?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Sim</button>
-    <button type="button" class="btn btn-default" data-dismiss="modal">N&atilde;o</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 <script type="application/javascript">
-                var active = document.getElementById("simulado");
+                var active = document.getElementById("questoes");
                 active.classList.add("active");
  </script>
 
