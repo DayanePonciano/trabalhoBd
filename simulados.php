@@ -1,9 +1,39 @@
  <?php
  include_once 'menu.php';
+include_once 'assets/php/classes/classSimulados.php';
 include_once 'assets/php/classes/classArea.php';
-    
+
+        $classSimulados= new classSimulados();
         $classArea= new classArea();
 
+
+
+
+    if(isset($_POST['delete'])){
+
+         $classSimulados->setId($_POST['id1']);
+
+        if($classSimulados->delete() == 1){
+            $result = "Venda excluida com sucesso!";
+        }else{
+            $error = "Erro ao excluir";
+        }
+
+    }
+
+        if(isset($_POST['edit'])){
+        $classSimulados->setId($_POST['id1']);
+        $classSimulados->setQuantidade($_POST['quantidade']);
+        $classSimulados->setData($_POST['data']);
+        $classSimulados->setProdutos_id($_POST['produtos_id']);
+
+    if($classSimulados->edit() == 1){
+        $result = "Estoque editado com sucesso!";
+    }else{
+        $error = "Erro ao editar";
+    }
+
+}
 
  ?>
 
@@ -12,7 +42,7 @@ include_once 'assets/php/classes/classArea.php';
  
     <div id="top" class="row">
         <div class="col-sm-3">
-            <h2>Áreas</h2>
+            <h2>Simulados</h2>
         </div>
         <div class="col-sm-6">
             
@@ -34,7 +64,7 @@ include_once 'assets/php/classes/classArea.php';
                               </div>
         </div>
         <div class="col-sm-3">
-            <a href="adicionarVenda.php" class="btn btn-primary pull-right h2">Nova Area</a>
+            <a href="adicionarVenda.php" class="btn btn-primary pull-right h2">Novo Item</a>
         </div>
     </div> <!-- /#top -->
  
@@ -46,22 +76,28 @@ include_once 'assets/php/classes/classArea.php';
         <table class="table table-striped" cellspacing="0" cellpadding="0">
             <thead>
                 <tr>
-                    <th>Nome da Área</th>                    
+                    <th>Nome</th>
+                    <th>Data</th>
+                    <th>Área</th>
+                    
                     
                     <th class="actions">Ações</th>
                 </tr>
             </thead>
             <tbody>
                 <?php 
-                $stmt = $classArea->index();
-                 while($row = $stmt->fetch(PDO::FETCH_OBJ)){
+                $stmt = $classSimulados->index();
+                $stmt1 = $classArea->index();
+                $row1= $stmt1->fetch(PDO::FETCH_OBJ);
+                 while($row = $stmt->fetch(PDO::FETCH_OBJ) ){
                   ?>
                 <tr>
-                    <td><?php echo $row->nome ?></td>
-                                        
+                    <td><?php echo $row->name ?></td>
+                    <td><?php echo $row->data ?></td>
+                    <td><?php echo $row1->nome ?></td>
                     <td class="actions">
-                        <a class="btn btn-warning btn-xs" href="edit.html">Editar</a>
-                        <a class="btn btn-danger btn-xs"  href="#" data-toggle="modal" data-target="#delete-modal">Excluir</a>
+                       <a class="btn btn-warning btn-xs" href="editarVendas.php?id=<?php echo $row->idmocks ?>">Editar</a>
+                       
                     </td>
                        <?php } ?>
                 </tr>
@@ -93,7 +129,7 @@ include_once 'assets/php/classes/classArea.php';
 </div>
 
 <script type="application/javascript">
-                var active = document.getElementById("produtos");
+                var active = document.getElementById("simulado");
                 active.classList.add("active");
  </script>
 

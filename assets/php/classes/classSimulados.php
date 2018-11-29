@@ -2,11 +2,11 @@
 
 require_once "database.php";
 
-class classVendas{
-	private $id;
-	private $quantidade;
+class classSimulados{
+	private $idmocks;
+	private $nome;
+	private $area_idarea;
 	private $data;
-	private $produtos_id;
  
 
 	public function __construct() {
@@ -16,29 +16,30 @@ class classVendas{
 	}
 
 	function setId($value){
-		$this->id = $value;
+		$this->idmocks = $value;
 	}
 
-	function setQuantidade($value){
-		$this->quantidade = $value;
+	function setNome($value){
+		$this->nome = $value;
+	}
+
+	function setArea($value){
+		$this->area_idarea = $value;
 	}
 
 	function setData($value){
 		$this->data = $value;
 	}
 
-	function setProdutos_id($value){
-		$this->produtos_id = $value;
-	}
-
 	
 
 	public function insert(){
 		try{
-			$stmt = $this->conn->prepare("INSERT INTO `vendas`(`quantidade`, `data`, `produtos_id`) VALUES (:quantidade, :data, :produtos_id);");
-			$stmt->bindParam(":quantidade", $this->quantidade);
+			$stmt = $this->conn->prepare("INSERT INTO `simulados`(`idmocks`, `nome`, `area_idarea`, `data`) VALUES (:idmocks, :nome, :area_idarea :data");
+			$stmt->bindParam(":idmocks", $this->idmocks);
+			$stmt->bindParam(":nome", $this->nome);
+			$stmt->bindParam(":area_idarea", $this->area_idarea);
 			$stmt->bindParam(":data", $this->data);
-			$stmt->bindParam(":produtos_id", $this->produtos_id);
 			$stmt->execute();
 			return 1;
 		}catch(PDOException $e){
@@ -50,7 +51,7 @@ class classVendas{
 
 		public function edit(){
 		try{
-			$stmt = $this->conn->prepare("UPDATE `vendas` SET `quantidade` = :quantidade, `data` = :data, `produtos_id` = :produtos_id");
+			$stmt = $this->conn->prepare("UPDATE `simulados` SET `quantidade` = :quantidade, `data` = :data, `produtos_id` = :produtos_id");
 			$stmt->bindParam(":quantidade", $this->quantidade);
 			$stmt->bindParam(":data", $this->data);
 			$stmt->bindParam(":produtos_id", $this->produtos_id);
@@ -66,8 +67,8 @@ class classVendas{
 
 		public function delete(){
 		try{
-			$stmt = $this->conn->prepare("DELETE FROM `vendas` WHERE `id` = :id");
-			$stmt->bindParam(":id", $this->id);
+			$stmt = $this->conn->prepare("DELETE FROM `simulados` WHERE `idmocks` = :id");
+			$stmt->bindParam(":id", $this->idmocks);
 			$stmt->execute();
 			return 1;
 		}catch(PDOException $e){
@@ -77,15 +78,15 @@ class classVendas{
 	}
 
 	public function view(){
-		$stmt = $this->conn->prepare("SELECT * FROM `vendas` WHERE `id` = :id");
-		$stmt->bindParam(":id", $this->id);
+		$stmt = $this->conn->prepare("SELECT * FROM `simulados` WHERE `idmocks` = :id");
+		$stmt->bindParam(":id", $this->idmocks);
 		$stmt->execute();
 		$row = $stmt->fetch(PDO::FETCH_OBJ);
 		return $row;
 	}
 
 		public function index(){
-		$stmt = $this->conn->prepare("SELECT * FROM `vendas` WHERE 1 ORDER BY `quantidade`");
+		$stmt = $this->conn->prepare("SELECT * FROM `simulados` ORDER BY `idmocks`");
 		$stmt->execute();
 		return $stmt;
 	}

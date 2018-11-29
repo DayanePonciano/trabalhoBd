@@ -1,8 +1,11 @@
  <?php
  include_once 'menu.php';
-include_once 'assets/php/classes/classArea.php';
-    
-        $classArea= new classArea();
+include_once 'assets/php/classes/classLogin.php';
+
+        $classLogin= new classLogin();
+
+
+
 
 
  ?>
@@ -12,7 +15,7 @@ include_once 'assets/php/classes/classArea.php';
  
     <div id="top" class="row">
         <div class="col-sm-3">
-            <h2>Áreas</h2>
+            <h2>Alunos Cadastrados</h2>
         </div>
         <div class="col-sm-6">
             
@@ -33,36 +36,33 @@ include_once 'assets/php/classes/classArea.php';
                                   </button>
                               </div>
         </div>
-        <div class="col-sm-3">
-            <a href="adicionarVenda.php" class="btn btn-primary pull-right h2">Nova Area</a>
-        </div>
+
     </div> <!-- /#top -->
  
  
     <hr />
     <div id="list" class="row">
     
-    <div class="table-responsive col-md-12">
-        <table class="table table-striped" cellspacing="0" cellpadding="0">
+    <div class="table-responsive col-md-12" align="center">
+        <table class="table table-striped" cellspacing="0" cellpadding="0" >
             <thead>
                 <tr>
-                    <th>Nome da Área</th>                    
+                    <th>Nome</th>
+                    <th>E-mail</th>
                     
-                    <th class="actions">Ações</th>
+                    
                 </tr>
             </thead>
             <tbody>
                 <?php 
-                $stmt = $classArea->index();
-                 while($row = $stmt->fetch(PDO::FETCH_OBJ)){
+                $stmt = $classLogin->alunos();
+                
+                 while($row = $stmt->fetch(PDO::FETCH_OBJ) ){
                   ?>
                 <tr>
                     <td><?php echo $row->nome ?></td>
-                                        
-                    <td class="actions">
-                        <a class="btn btn-warning btn-xs" href="edit.html">Editar</a>
-                        <a class="btn btn-danger btn-xs"  href="#" data-toggle="modal" data-target="#delete-modal">Excluir</a>
-                    </td>
+                    <td><?php echo $row->email ?></td>
+                  
                        <?php } ?>
                 </tr>
                 
@@ -73,27 +73,9 @@ include_once 'assets/php/classes/classArea.php';
     </div> <!-- /#list -->
  </div> <!-- /#main -->
 
-<!-- Modal -->
-<div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title" id="modalLabel">Excluir Item</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar"><span aria-hidden="true">&times;</span></button>
-      </div>
-      <div class="modal-body">
-        Deseja realmente excluir este item?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Sim</button>
-    <button type="button" class="btn btn-default" data-dismiss="modal">N&atilde;o</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 <script type="application/javascript">
-                var active = document.getElementById("produtos");
+                var active = document.getElementById("alunos");
                 active.classList.add("active");
  </script>
 

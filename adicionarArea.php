@@ -1,24 +1,23 @@
 
 <?php
 	include_once 'menu.php';
-    include_once 'assets/php/classes/classEstoques.php';
-      include_once 'assets/php/classes/classProduto.php';
+    include_once 'assets/php/classes/classArea.php';
 
-     $classEstoques = new classEstoques();
-     $classProduto= new classProduto();
+     $classArea = new classArea();
 
 
 
         if(isset($_POST['insert'])){
             
-        $classEstoques->setQuantidade($_POST['quantidade']);        
-         $classEstoques->setProdutos_id($_POST['produtos_id']);
+        $classArea->setNome($_POST['nome']);        
+        $classArea->setId($_POST['idarea']);        
+
          
 
 
 
-    if($classEstoques->insert()==1){
-         echo "<script>location.href='estoque.php';</script>"; 
+    if($classArea->insert()==1){
+         echo "<script>location.href='area.php';</script>"; 
     }else{
 
         $error="Erro ao inserir";
@@ -33,7 +32,7 @@
  
     <div id="top" class="row">
         <div class="col-sm-12">
-            <h2>Adicionar Estoque</h2>
+            <h2>Adicionar Área</h2>
         </div>
        
     </div> <!-- /#top -->
@@ -45,16 +44,16 @@
                             <div class="card-header">
                             </div>
                             <div class="card-body card-block">
-                                <form action="adicionarEstoque.php" method="POST" enctype="multipart/form-data" class="form-horizontal">
+                                <form action="adicionarArea.php" method="POST" enctype="multipart/form-data" class="form-horizontal">
                                     <div class="row form-group">
-                                        <div class="col col-md-3"><label for="text-input" class=" form-control-label">Quantidade</label></div>
-                                        <div class="col-12 col-md-9"><input type="text" id="text-input" name="quantidade" placeholder="" class="form-control">
+                                        <div class="col col-md-3"><label for="text-input" class=" form-control-label">Nome</label></div>
+                                        <div class="col-12 col-md-9"><input type="text" id="text-input" name="nome" placeholder="" class="form-control">
                                     </div>
                                 </div>
                                
                                     <div class="row form-group">
-                                        <div class="col col-md-3"><label for="email-input" class=" form-control-label">ID do produto</label></div>
-                                        <div class="col-12 col-md-9"><input type="text" id="email-input" name="produtos_id" placeholder="" class="form-control"></div>
+                                        <div class="col col-md-3"><label for="email-input" class=" form-control-label">Código da Área</label></div>
+                                        <div class="col-12 col-md-9"><input type="text" id="email-input" name="idarea" placeholder="" class="form-control"></div>
                                     </div>
                                     
                                         <div class="form-actions form-group">

@@ -50,15 +50,15 @@
                         <a href="dashboard.php"> <i class="menu-icon fa fa-dashboard"></i>Visão Geral </a>
                     </li>
                     <h3 class="menu-title">Componentes</h3><!-- /.menu-title -->
-                    <li id="produtos">
-                        <a href="produtos.php" class="dropdown-toggle"aria-haspopup="true" aria-expanded="false"> <i class="menu-icon ti-shopping-cart"></i>Produtos</a>
+                    <li id="areas">
+                        <a href="area.php" class="dropdown-toggle"aria-haspopup="true" aria-expanded="false"> <i class="menu-icon ti-shopping-cart"></i>Áreas</a>
 
                     </li>
-                    <li id="estoque">
-                        <a href="estoque.php" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon ti-truck"></i>Estoque</a>
+                    <li id="simulado">
+                        <a href="simulados.php" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon ti-truck"></i>Simulado</a>
                     </li>
-                    <li id="vendas">
-                        <a href="vendas.php" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon ti-panel"></i>Vendas</a>
+                    <li id="alunos">
+                        <a href="alunos.php" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon ti-panel"></i>Alunos Cadastrados</a>
                     </li>
        <!--              <li id="relatorios">
                         <a href="relatorios.php" class="dropdown-toggle"  aria-haspopup="true" aria-expanded="false"> <i class="menu-icon ti-stats-up"></i>Relatórios</a>

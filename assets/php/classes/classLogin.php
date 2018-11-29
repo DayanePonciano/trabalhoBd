@@ -59,6 +59,15 @@ class classLogin{
         }
     }
 
+     public function alunos(){
+       
+            $stmt = $this->conn->prepare("SELECT * FROM `login` WHERE `tipo`= '1'");
+		$stmt->execute();
+		return $stmt;
+		
+           
+        
+    }
 
         public function locate(){
         $stmt = $this->conn->prepare("SELECT * FROM `login` WHERE `email` = :email AND `password` = :password;");

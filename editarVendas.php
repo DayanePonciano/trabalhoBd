@@ -1,11 +1,13 @@
 <?php
 	include_once 'menu.php';
-    include_once 'assets/php/classes/classVendas.php';
-    $classVendas= new classVendas();
-     $vendas = new classvendas();
+    include_once 'assets/php/classes/classSimulado.php';
+        include_once 'assets/php/classes/classArea.php';
 
-         $classVendas->setId($_GET['id']);
-    $vendas = $classVendas->view();
+    $classSimulado= new classSimulado();
+     $simulado = new classSimulado();
+
+         $classSimulado->setId($_GET['id']);
+    $simulado = $classSimulado->view();
 
         ?>
 
@@ -25,20 +27,20 @@
                             <div class="card-header">
                             </div>
                             <div class="card-body card-block">
-                                <form action="vendas.php" method="POST" enctype="multipart/form-data" class="form-horizontal">
+                                <form action="simulado.php" method="POST" enctype="multipart/form-data" class="form-horizontal">
                                     <div class="row form-group">
-                                        <div class="col col-md-3"><label for="text-input" class=" form-control-label">Quantidade</label></div>
-                                        <div class="col-12 col-md-9"><input type="text" name="quantidade" value="<?php echo $vendas->quantidade ?>"  class="form-control">
+                                        <div class="col col-md-3"><label for="text-input" class=" form-control-label">Simulado</label></div>
+                                        <div class="col-12 col-md-9"><input type="text" name="quantidade" value="<?php echo $simulado->nome ?>"  class="form-control">
                                     </div>
                                 </div>
                                 <div class="row form-group">
                                         <div class="col col-md-3"><label for="textarea-input" class=" form-control-label">Data</label></div>
-                                        <div class="col-12 col-md-9"><input type="date" id="email-input" name="data"  class="form-control" value="<?php echo $vendas->data ?>"></input></div>
+                                        <div class="col-12 col-md-9"><input type="date" id="email-input" name="data"  class="form-control" value="<?php echo $simulado->data ?>"></input></div>
                                         
                                     </div>
                                     <div class="row form-group">
                                         <div class="col col-md-3"><label for="email-input" class=" form-control-label">ID do Produto</label></div>
-                                        <div class="col-12 col-md-9"><input type="text" id="email-input" name="produtos_id" value="<?php echo $vendas->produtos_id ?>" class="form-control"></div>
+                                        <div class="col-12 col-md-9"><input type="text" id="email-input" name="produtos_id" value="<?php echo $simulado->produtos_id ?>" class="form-control"></div>
                                     </div>
                                     
                                         <div class="form-actions form-group">
